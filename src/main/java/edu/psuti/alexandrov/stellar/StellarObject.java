@@ -5,65 +5,70 @@ import com.opencsv.bean.CsvCustomBindByName;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.stream.Stream;
 
 public class StellarObject implements Serializable {
 
     @CsvBindByName(column = "obj_ID")
-    String getId;
+    private String id;
 
     @CsvBindByName(column = "spec_obj_ID")
-    String specialId;
+    private String specialId;
 
     @CsvBindByName(column = "alpha")
-    BigDecimal rightAscension;
+    private BigDecimal rightAscension;
 
     @CsvBindByName(column = "delta")
-    BigDecimal declination;
+    private BigDecimal declination;
 
     @CsvBindByName(column = "u")
-    BigDecimal ultraviolet;
+    private BigDecimal ultraviolet;
 
     @CsvBindByName(column = "g")
-    BigDecimal green;
+    private BigDecimal green;
 
     @CsvBindByName(column = "r")
-    BigDecimal red;
+    private BigDecimal red;
 
     @CsvBindByName(column = "i")
-    BigDecimal nearInfrared;
+    private BigDecimal nearInfrared;
 
     @CsvBindByName(column = "z")
-    BigDecimal infrared;
+    private BigDecimal infrared;
 
     @CsvBindByName(column = "run_ID")
-    int run;
+    private int run;
 
     @CsvBindByName(column = "rerun_ID")
-    int rerun;
+    private int rerun;
 
     @CsvBindByName(column = "cam_col")
-    int cameraColumn;
+    private int cameraColumn;
 
     @CsvBindByName(column = "field_ID")
-    int field;
+    private int field;
 
     @CsvCustomBindByName(column = "class", converter = StellarClassConverter.class)
-    StellarClass outputClass;
+    private StellarClass outputClass;
 
     @CsvBindByName(column = "redshift")
-    BigDecimal redshift;
+    private BigDecimal redshift;
 
     @CsvBindByName(column = "plate")
-    int plate;
+    private int plate;
 
     @CsvBindByName(column = "MJD")
-    int modifiedJulianDate;
+    private int modifiedJulianDate;
 
     @CsvBindByName(column = "fiber_ID")
-    int fiber;
+    private int fiber;
 
-    public void setGetId(String getId) {
-        this.getId = getId;
+    public StellarClass getOutputClass() {
+        return outputClass;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setSpecialId(String specialId) {
@@ -132,5 +137,9 @@ public class StellarObject implements Serializable {
 
     public void setFiber(int fiber) {
         this.fiber = fiber;
+    }
+
+    public Stream<BigDecimal> datumStream() {
+        return Stream.of(declination, rightAscension, redshift, red, ultraviolet, green, infrared, nearInfrared);
     }
 }
