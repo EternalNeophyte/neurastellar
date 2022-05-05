@@ -27,11 +27,6 @@
         </dependency>
         <dependency>
             <groupId>ai.djl</groupId>
-            <artifactId>repository</artifactId>
-            <version>0.4.1</version>
-        </dependency>
-        <dependency>
-            <groupId>ai.djl</groupId>
             <artifactId>basicdataset</artifactId>
             <version>0.16.0</version>
         </dependency>
