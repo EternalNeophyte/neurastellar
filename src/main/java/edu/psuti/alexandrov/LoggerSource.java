@@ -7,7 +7,7 @@ public final class LoggerSource {
     }
 
     public static void load() {
-        String path = Runner.class
+        String path = NeurastellarApplication.class
                 .getClassLoader()
                 .getResource("logger.properties")
                 .getFile();

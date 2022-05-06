@@ -19,11 +19,13 @@ public interface MetaProperties {
                 SECOND_LAYER_UNITS = 0x44,
                 THIRD_LAYER_UNITS = 0x77,
                 OUTPUTS = 3;
+        int BATCH_SIZE = 0x80;
+        boolean RANDOM_SAMPLING = true;
     }
 
-    interface Trainig {
+    interface Training {
 
-        int BATCH_SIZE = 64, FINAL_IMG_SIDE = 100, N_THREADS = 4, EPOCHS = 10;
+        int N_THREADS = 4, EPOCHS = 10;
         String OUTPUT_DIR = "src\\main\\resources\\training";
     }
 

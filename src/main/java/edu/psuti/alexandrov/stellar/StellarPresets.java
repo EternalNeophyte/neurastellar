@@ -1,7 +1,6 @@
 package edu.psuti.alexandrov.stellar;
 
 import ai.djl.Device;
-import ai.djl.engine.Engine;
 import ai.djl.nn.Activation;
 import ai.djl.nn.Block;
 import ai.djl.nn.Blocks;
@@ -16,45 +15,27 @@ import ai.djl.training.listener.SaveModelTrainingListener;
 import ai.djl.training.listener.TrainingListener;
 import ai.djl.training.loss.Loss;
 import ai.djl.training.optimizer.Optimizer;
-import com.opencsv.bean.CsvToBeanBuilder;
 import edu.psuti.alexandrov.MetaProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.List;
 import java.util.concurrent.Executors;
 
 public record StellarPresets
-        (RandomAccessDataset dataset,
+        (RandomAccessDataset trainingDataset,
          Block neuralNetwork,
          TrainingConfig trainingConfig)
-        implements MetaProperties.Csv, MetaProperties.NeuralNetwork, MetaProperties.Trainig {
+        implements MetaProperties.Csv, MetaProperties.NeuralNetwork, MetaProperties.Training {
 
     private static final Logger LOG = LoggerFactory.getLogger(StellarPresets.class);
 
     public static StellarPresets setup() {
-        return new StellarPresets(newDataset(), newNeuralNetwork(), newTrainingConfig());
+        return new StellarPresets(newTrainingDataset(), newNeuralNetwork(), newTrainingConfig());
     }
 
-    private static List<StellarObject> newCsvObjects() {
-        try(var reader = Files.newBufferedReader(PATH_TO_TRAINING_DATA)) {
-            LOG.info("Reading data from CSV...");
-            return new CsvToBeanBuilder<StellarObject>(reader)
-                    .withType(StellarObject.class)
-                    .withSeparator(SEPARATOR)
-                    .withSkipLines(SKIP_LINES)
-                    .withIgnoreQuotations(IGNORE_QUOTATIONS)
-                    .build()
-                    .parse();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static RandomAccessDataset newDataset() {
-        return new StellarDataset.Builder(newCsvObjects()).build();
+    private static RandomAccessDataset newTrainingDataset() {
+        LOG.info("Loading training dataset...");
+        return StellarDataset.fromFile(PATH_TO_TRAINING_DATA);
     }
 
     private static Block newNeuralNetwork() {

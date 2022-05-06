@@ -6,16 +6,31 @@ import ai.djl.ndarray.NDManager;
 import ai.djl.training.dataset.RandomAccessDataset;
 import ai.djl.training.dataset.Record;
 import ai.djl.util.Progress;
+import com.opencsv.bean.CsvToBeanBuilder;
+import edu.psuti.alexandrov.MetaProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
-public class StellarDataset extends RandomAccessDataset {
+import static java.util.Collections.emptyList;
+
+public class StellarDataset extends RandomAccessDataset implements MetaProperties.NeuralNetwork {
 
     private final List<StellarObject> csvObjects;
 
     public StellarDataset(Builder builder) {
         super(builder);
         this.csvObjects = builder.csvObjects;
+    }
+
+    public static StellarDataset fromFile(Path pathToFile) {
+        return new StellarDataset.Builder(pathToFile)
+                .setSampling(BATCH_SIZE, RANDOM_SAMPLING)
+                .build();
     }
 
     @Override
@@ -37,21 +52,38 @@ public class StellarDataset extends RandomAccessDataset {
     @Override
     public void prepare(Progress progress) { }
 
-    public static final class Builder extends BaseBuilder<Builder> {
 
+    public static final class Builder extends BaseBuilder<Builder> implements MetaProperties.Csv {
+
+        private static final Logger LOG = LoggerFactory.getLogger(Builder.class);
         private final List<StellarObject> csvObjects;
 
-        public Builder(List<StellarObject> csvObjects) {
-            this.csvObjects = csvObjects;
+        public Builder(Path pathToFile) {
+            this.csvObjects = loadCsvObjects(pathToFile);
+        }
+
+        private static List<StellarObject> loadCsvObjects(Path pathToFile) {
+            try(var reader = Files.newBufferedReader(pathToFile)) {
+                return new CsvToBeanBuilder<StellarObject>(reader)
+                        .withType(StellarObject.class)
+                        .withSeparator(SEPARATOR)
+                        .withSkipLines(SKIP_LINES)
+                        .withIgnoreQuotations(IGNORE_QUOTATIONS)
+                        .build()
+                        .parse();
+            } catch (IOException e) {
+                LOG.error("Failed to read data from " + pathToFile, e);
+                return emptyList();
+            }
+        }
+
+        public StellarDataset build() {
+            return new StellarDataset(this);
         }
 
         @Override
         protected Builder self() {
             return this;
-        }
-
-        public StellarDataset build() {
-            return new StellarDataset(this);
         }
     }
 }
