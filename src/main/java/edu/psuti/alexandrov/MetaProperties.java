@@ -23,7 +23,8 @@ public interface MetaProperties {
 
     interface Trainig {
 
-        int BATCH_SIZE = 64, FINAL_IMG_SIDE = 100;
+        int BATCH_SIZE = 64, FINAL_IMG_SIDE = 100, N_THREADS = 4, EPOCHS = 10;
+        String OUTPUT_DIR = "src\\main\\resources\\training";
     }
 
     interface Testing {
