@@ -12,5 +12,7 @@ module edu.psuti.alexandrov {
     requires org.slf4j;
 
     opens edu.psuti.alexandrov to javafx.fxml;
+    opens edu.psuti.alexandrov.ui to javafx.fxml;
     exports edu.psuti.alexandrov;
+    exports edu.psuti.alexandrov.ui;
 }

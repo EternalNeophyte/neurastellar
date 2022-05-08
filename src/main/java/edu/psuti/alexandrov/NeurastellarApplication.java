@@ -22,9 +22,10 @@ public class NeurastellarApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Parent src = FXMLLoader.load(NeurastellarApplication.class.getResource("/ui.fxml"));
+        var klass = NeurastellarApplication.class;
+        Parent src = FXMLLoader.load(klass.getResource("/ui.fxml"));
         stage.setTitle("Neurastellar");
-        stage.setScene(new Scene(src, 750, 500));
+        stage.setScene(new Scene(src, 1200, 750));
         stage.show();
     }
 }
