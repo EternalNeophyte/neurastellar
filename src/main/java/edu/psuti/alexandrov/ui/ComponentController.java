@@ -3,19 +3,32 @@ package edu.psuti.alexandrov.ui;
 import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class BackgroundSkyController implements Initializable {
+public class ComponentController implements Initializable {
 
     @FXML
     private ImageView bgSky;
 
+    @FXML
+    private TabPane tabPane;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        tabPane.setStyle(
+                """
+                            .tab-pane .tab-header-area .tab-header-background {
+                                        -fx-effect: null;
+                                    }
+                        """
+        );
+        //tabPane.lookup(".tab-pane .tab-header-area .tab-header-background").setStyle("-fx-effect: null;");
 
         var rotate = new RotateTransition();
         rotate.setByAngle(360);
