@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.psuti.alexandrov.ui.ComponentController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.psuti.alexandrov.ui.UiController">
    <children>
       <ImageView fx:id="bgSky" fitHeight="1150.0" fitWidth="1900.0" layoutX="21.0" layoutY="-59.0" pickOnBounds="true" preserveRatio="true" x="-122.0" y="-93.0" AnchorPane.bottomAnchor="-123.0" AnchorPane.leftAnchor="-101.0" AnchorPane.rightAnchor="-302.0" AnchorPane.topAnchor="-170.0">
          <image>
@@ -66,7 +66,7 @@
                   </Stop>
                   <Stop offset="1.0">
                      <color>
-                        <Color red="0.7633333206176758" green="0.4740740656852722" blue="1.0" />
+                        <Color red="0.7647058963775635" green="0.4745098054409027" blue="1.0" />
                      </color>
                   </Stop>
                </stops>
@@ -76,12 +76,12 @@
             <Bloom />
          </effect>
          <StackPane.margin>
-            <Insets bottom="450.0" />
+            <Insets bottom="525.0" />
          </StackPane.margin>
       </Text>
-      <Text fx:id="preName" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Нейросетевая модель поиска и классификации астрономических объектов" textAlignment="CENTER" wrappingWidth="724.9898796677589">
+      <Text fx:id="preName" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Нейросетевая модель поиска и классификации астрономических объектов" textAlignment="CENTER" wrappingWidth="1008.9898765683174">
          <StackPane.margin>
-            <Insets bottom="600.0" />
+            <Insets bottom="675.0" />
          </StackPane.margin>
          <font>
             <Font name="Segoe UI Bold" size="25.0" />
@@ -90,7 +90,7 @@
             <Bloom />
          </effect>
       </Text>
-      <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" side="BOTTOM" styleClass="opTabPane" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" side="LEFT" styleClass="opTabPane" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Модель">
             <content>
@@ -102,13 +102,33 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </content>
           </Tab>
-          <Tab text="Тренировка">
+          <Tab text="Обучение">
              <content>
-                <StackPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                   <children>
-                      <ProgressBar fx:id="trainProgress" prefHeight="19.0" prefWidth="100.0" />
-                   </children>
-                </StackPane>
+                  <AnchorPane prefHeight="526.0" prefWidth="1205.0">
+                     <children>
+                      <ProgressBar fx:id="trainProgress" layoutX="-35.0" layoutY="380.0" prefHeight="5.0" prefWidth="1130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="35.0">
+                           <effect>
+                              <Bloom threshold="0.39" />
+                           </effect>
+                        </ProgressBar>
+                        <Text fx:id="epochLabel" fill="WHITE" layoutX="120.0" layoutY="489.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Эпоха" AnchorPane.bottomAnchor="30.600000000000023" AnchorPane.leftAnchor="120.0" />
+                        <TextArea fx:id="trainLogs" editable="false" layoutX="14.0" prefHeight="429.0" prefWidth="1113.0" wrapText="true" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="15.0" />
+                         <ImageView fx:id="resumeTrain" cache="true" fitHeight="45.0" fitWidth="45.0" layoutX="15.0" layoutY="461.0" onMouseClicked="#onTrainButtonClick" pickOnBounds="true" preserveRatio="true">
+                             <Image url="@images/play-arrow-white.png" />
+                           <effect>
+                              <Bloom threshold="0.4" />
+                           </effect>
+                           </ImageView>
+                        <ImageView fx:id="pauseTrain" cache="true" fitHeight="45.0" fitWidth="45.0" layoutX="15.0" layoutY="463.0" onMouseClicked="#onTrainButtonClick" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+                           <effect>
+                              <Bloom threshold="0.4" />
+                           </effect>
+                           <image>
+                              <Image url="@images/pause-white.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
              </content>
           </Tab>
           <Tab text="Классификация">
@@ -121,7 +141,7 @@
           </Tab>
         </tabs>
          <StackPane.margin>
-            <Insets top="300.0" />
+            <Insets top="225.0" />
          </StackPane.margin>
       </TabPane>
    </children>

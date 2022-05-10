@@ -3,12 +3,12 @@
     -fx-background-insets: 0 0 0 0;
     -fx-background-color: #9959ff00;
     -fx-border-color: none;
-    -fx-border-radius: 25;
-    -fx-pref-height: 40;
+    -fx-border-radius: 10;
+    -fx-pref-height: 30;
 }
 
 .tab-pane:bottom *.tab-header-area{
-    -fx-padding: 0 0 10 500;
+    /*-fx-padding: 0 0 10 500;*/
 }
 
 .tab:selected {
@@ -37,4 +37,32 @@ Remove selection
 }
 
 
+/*
+Progress Bar
+*/
 
+.progress-bar {
+    -fx-accent: #c379ff;
+}
+
+.progress-bar .bar {
+    -fx-padding: 1px;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+.progress-bar > .track {
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-text-box-border: transparent;
+    -fx-control-inner-background: transparent;
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+
+.text-area {
+    -fx-background-color: transparent;
+}
+
+.button {
+    -fx-background-color: transparent;
+}

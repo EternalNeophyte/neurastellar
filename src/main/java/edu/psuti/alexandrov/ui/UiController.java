@@ -1,11 +1,13 @@
 package edu.psuti.alexandrov.ui;
 
-import edu.psuti.alexandrov.AppPresets;
 import javafx.animation.*;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
@@ -15,7 +17,7 @@ import java.util.ResourceBundle;
 import static edu.psuti.alexandrov.AppPresets.*;
 import static edu.psuti.alexandrov.ui.Fonts.*;
 
-public class ComponentController implements Initializable {
+public class UiController implements Initializable {
 
     @FXML
     private ImageView bgSky;
@@ -29,10 +31,27 @@ public class ComponentController implements Initializable {
     @FXML
     private TabPane tabPane;
 
+    /*@FXML
+    private Button trainButton;*/
+
+    @FXML
+    private ImageView resumeTrain;
+
+    @FXML
+    private ImageView pauseTrain;
+
+    @FXML
+    private Text epochLabel;
+
+    @FXML
+    private TextArea trainLogs;
+
+    private TrainButtonHandler trainButtonHandler;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         appName.setFont(font(EXO_2_BOLD, 75));
-        preName.setFont(font(EXO_2_BOLD, 28));
+        preName.setFont(font(EXO_2_BOLD, 25));
         tabPane.getStylesheets().add(css());
 
         var rotate = new RotateTransition();
@@ -52,5 +71,11 @@ public class ComponentController implements Initializable {
         var parrallel = new ParallelTransition(rotate, scale);
         parrallel.setNode(bgSky);
         parrallel.play();
+    }
+
+    public void onTrainButtonClick(Event e) {
+        boolean resumeButtonIsHiding = resumeTrain.getOpacity() > 0;
+        resumeTrain.setOpacity(resumeButtonIsHiding ? 0 : 1);
+        pauseTrain.setOpacity(resumeButtonIsHiding ? 1 : 0);
     }
 }

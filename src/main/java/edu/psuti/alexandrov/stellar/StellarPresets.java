@@ -11,6 +11,7 @@ import ai.djl.training.TrainingConfig;
 import ai.djl.training.dataset.RandomAccessDataset;
 import ai.djl.training.evaluator.Accuracy;
 import ai.djl.training.initializer.XavierInitializer;
+import ai.djl.training.listener.EpochTrainingListener;
 import ai.djl.training.listener.SaveModelTrainingListener;
 import ai.djl.training.listener.TrainingListener;
 import ai.djl.training.loss.Loss;
@@ -90,7 +91,7 @@ public record StellarPresets
                 .optExecutorService(executorService)
                 .addEvaluator(new Accuracy("Accuracy", 2))
                 .addTrainingListeners(TrainingListener.Defaults.logging())
-                .addTrainingListeners(saveListener);
+                .addTrainingListeners(saveListener, new EpochTrainingListener());
     }
 
 
