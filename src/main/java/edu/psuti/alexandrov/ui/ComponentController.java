@@ -4,6 +4,7 @@ import edu.psuti.alexandrov.AppPresets;
 import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -11,7 +12,8 @@ import javafx.util.Duration;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static edu.psuti.alexandrov.ui.Fonts.EXO_2_LIGHT;
+import static edu.psuti.alexandrov.AppPresets.*;
+import static edu.psuti.alexandrov.ui.Fonts.*;
 
 public class ComponentController implements Initializable {
 
@@ -24,12 +26,14 @@ public class ComponentController implements Initializable {
     @FXML
     private Text preName;
 
+    @FXML
+    private TabPane tabPane;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        var appNameFont = AppPresets.font(EXO_2_LIGHT, 75);
-        appName.setFont(appNameFont);
-        var preNameFont = AppPresets.font(EXO_2_LIGHT, 28);
-        preName.setFont(preNameFont);
+        appName.setFont(font(EXO_2_BOLD, 75));
+        preName.setFont(font(EXO_2_BOLD, 28));
+        tabPane.getStylesheets().add(css());
 
         var rotate = new RotateTransition();
         rotate.setByAngle(360);

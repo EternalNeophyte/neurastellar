@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -18,7 +19,7 @@
             <Bloom threshold="0.39" />
          </effect>
       </ImageView>
-      <Rectangle fx:id="shadow" arcHeight="5.0" arcWidth="5.0" height="753.0" stroke="BLACK" strokeType="INSIDE" width="1204.0">
+      <Rectangle fx:id="shadow" arcHeight="5.0" arcWidth="5.0" height="1150.0" stroke="BLACK" strokeType="INSIDE" width="1900.0" x="-122.0" y="-93.0">
          <fill>
             <LinearGradient endX="0.3678160517608526" endY="1.0" startX="0.3678160334912296">
                <stops>
@@ -89,5 +90,39 @@
             <Bloom />
          </effect>
       </Text>
+      <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" side="BOTTOM" styleClass="opTabPane" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Модель">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+          <Tab text="Нейросеть">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+          <Tab text="Тренировка">
+             <content>
+                <StackPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                   <children>
+                      <ProgressBar fx:id="trainProgress" prefHeight="19.0" prefWidth="100.0" />
+                   </children>
+                </StackPane>
+             </content>
+          </Tab>
+          <Tab text="Классификация">
+             <content>
+                <StackPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                   <children>
+                   </children>
+                </StackPane>
+             </content>
+          </Tab>
+        </tabs>
+         <StackPane.margin>
+            <Insets top="300.0" />
+         </StackPane.margin>
+      </TabPane>
    </children>
 </StackPane>

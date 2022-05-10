@@ -38,4 +38,8 @@ public final class AppPresets {
                 .getResource(font.getFilePath()).toExternalForm();
         return Font.font(source, size);
     }
+
+    public static String css() {
+        return APP_CLASS.getResource("/css/styles.css").toExternalForm();
+    }
 }
