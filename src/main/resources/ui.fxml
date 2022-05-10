@@ -1,79 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
-
-<?import com.jfoenix.controls.JFXTabPane?>
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.psuti.alexandrov.ui.ComponentController">
    <children>
-      <ImageView fx:id="bgSky" fitHeight="1150.0" fitWidth="1900.0" layoutX="21.0" layoutY="-59.0" pickOnBounds="true" preserveRatio="true" smooth="false" x="-122.0" y="-93.0" AnchorPane.bottomAnchor="-123.0" AnchorPane.leftAnchor="-101.0" AnchorPane.rightAnchor="-302.0" AnchorPane.topAnchor="-170.0">
+      <ImageView fx:id="bgSky" fitHeight="1150.0" fitWidth="1900.0" layoutX="21.0" layoutY="-59.0" pickOnBounds="true" preserveRatio="true" x="-122.0" y="-93.0" AnchorPane.bottomAnchor="-123.0" AnchorPane.leftAnchor="-101.0" AnchorPane.rightAnchor="-302.0" AnchorPane.topAnchor="-170.0">
          <image>
-            <Image url="@assets/pexels-adam-krypel-6499137.jpg" />
+            <Image url="@images/pexels-adam-krypel-6499137.jpg" />
          </image>
          <effect>
             <Bloom threshold="0.39" />
          </effect>
       </ImageView>
-      <Text fontSmoothingType="LCD" stroke="#fff34d4b" strokeLineCap="BUTT" strokeType="OUTSIDE" strokeWidth="0.0" text="NEURASTELLAR">
-         <font>
-            <Font name="Nirmala UI" size="75.0" />
-         </font>
-         <StackPane.margin>
-            <Insets top="-400.0" />
-         </StackPane.margin>
-         <effect>
-            <Bloom threshold="0.45" />
-         </effect>
+      <Rectangle fx:id="shadow" arcHeight="5.0" arcWidth="5.0" height="753.0" stroke="BLACK" strokeType="INSIDE" width="1204.0">
          <fill>
-            <LinearGradient endX="0.6949806360664516" endY="0.1814672486662403" startX="0.679536652841163" startY="0.965250992867017">
+            <LinearGradient endX="0.3678160517608526" endY="1.0" startX="0.3678160334912296">
                <stops>
                   <Stop>
                      <color>
-                        <Color red="0.6120833158493042" green="0.5916666388511658" blue="1.0" />
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.006724548691644219">
+                     <color>
+                        <Color opacity="0.8818135261535645" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.9992679355783309">
+                     <color>
+                        <Color opacity="0.21192052960395813" />
                      </color>
                   </Stop>
                   <Stop offset="1.0">
                      <color>
-                        <Color red="1.0" green="1.0" blue="1.0" />
+                        <Color opacity="0.059602655470371246" />
                      </color>
                   </Stop>
                </stops>
             </LinearGradient>
          </fill>
-      </Text>
-      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Нейросетевая модель поиска и классификации  астрономических объедков" textAlignment="CENTER" wrappingWidth="922.1406661272049">
+      </Rectangle>
+      <Text fx:id="appName" strokeType="OUTSIDE" strokeWidth="0.0" text="NEURASTELLAR">
          <font>
-            <Font name="Nirmala UI Bold" size="40.0" />
+            <Font name="Nirmala UI Bold" size="75.0" />
          </font>
-         <StackPane.margin>
-            <Insets top="-600.0" />
-         </StackPane.margin>
+         <fill>
+            <LinearGradient endX="0.3678160517608526" endY="0.9138004542628001" startX="0.3678160334912296" startY="0.3610407378356515">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.006729475100942127">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.7633333206176758" green="0.4740740656852722" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
          <effect>
-            <Bloom threshold="0.2" />
+            <Bloom />
+         </effect>
+         <StackPane.margin>
+            <Insets bottom="450.0" />
+         </StackPane.margin>
+      </Text>
+      <Text fx:id="preName" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Нейросетевая модель поиска и классификации астрономических объектов" textAlignment="CENTER" wrappingWidth="724.9898796677589">
+         <StackPane.margin>
+            <Insets bottom="600.0" />
+         </StackPane.margin>
+         <font>
+            <Font name="Segoe UI Bold" size="25.0" />
+         </font>
+         <effect>
+            <Bloom />
          </effect>
       </Text>
-      <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab text="Данные">
-            <content>
-              <StackPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-          <Tab text="Параметры нейросети">
-            <content>
-              <StackPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-        </tabs>
-         <StackPane.margin>
-            <Insets top="300.0" />
-         </StackPane.margin>
-      </TabPane>
    </children>
 </StackPane>

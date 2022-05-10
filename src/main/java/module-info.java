@@ -4,8 +4,6 @@ module edu.psuti.alexandrov {
     requires javafx.web;
 
     requires org.controlsfx.controls;
-    requires eu.hansolo.tilesfx;
-    requires com.jfoenix;
 
     requires ai.djl.api;
     requires ai.djl.mxnet_engine;

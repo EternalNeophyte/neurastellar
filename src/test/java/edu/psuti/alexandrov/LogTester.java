@@ -11,7 +11,7 @@ public class LogTester {
     private static final Logger LOG;
 
     static {
-        LoggerSource.load();
+        AppPresets.loadLogger();
         LOG = LoggerFactory.getLogger(LogTester.class);
     }
 
