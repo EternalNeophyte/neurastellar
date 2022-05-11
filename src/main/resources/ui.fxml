@@ -111,7 +111,6 @@
                               <Bloom threshold="0.39" />
                            </effect>
                         </ProgressBar>
-                        <Text fx:id="epochLabel" fill="WHITE" layoutX="120.0" layoutY="489.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Эпоха" AnchorPane.bottomAnchor="30.600000000000023" AnchorPane.leftAnchor="120.0" />
                         <TextArea fx:id="trainLogs" editable="false" layoutX="14.0" prefHeight="429.0" prefWidth="1113.0" wrapText="true" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="15.0" />
                          <ImageView fx:id="resumeTrain" cache="true" fitHeight="45.0" fitWidth="45.0" layoutX="15.0" layoutY="461.0" onMouseClicked="#onTrainButtonClick" pickOnBounds="true" preserveRatio="true">
                              <Image url="@images/play-arrow-white.png" />
@@ -127,6 +126,7 @@
                               <Image url="@images/pause-white.png" />
                            </image>
                         </ImageView>
+                        <Label fx:id="trainStatus" layoutX="102.0" layoutY="474.0" textFill="WHITE" />
                      </children>
                   </AnchorPane>
              </content>

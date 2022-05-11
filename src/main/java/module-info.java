@@ -12,6 +12,8 @@ module edu.psuti.alexandrov {
 
     opens edu.psuti.alexandrov to javafx.fxml;
     opens edu.psuti.alexandrov.ui to javafx.fxml;
+    opens edu.psuti.alexandrov.stellar to com.opencsv;
+    exports edu.psuti.alexandrov.stellar;
     exports edu.psuti.alexandrov;
     exports edu.psuti.alexandrov.ui;
 }

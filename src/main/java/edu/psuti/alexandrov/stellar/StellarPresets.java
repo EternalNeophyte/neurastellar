@@ -16,6 +16,7 @@ import ai.djl.training.listener.SaveModelTrainingListener;
 import ai.djl.training.listener.TrainingListener;
 import ai.djl.training.loss.Loss;
 import ai.djl.training.optimizer.Optimizer;
+import ai.djl.training.tracker.LinearTracker;
 import edu.psuti.alexandrov.MetaProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,6 +80,10 @@ public record StellarPresets
                         .setRescaleGrad(1.0f / BATCH_SIZE)
                         .optWeightDecays(0.00001f)
                         .optMomentum(0.9f)
+                        .setLearningRateTracker(LinearTracker.builder()
+                                .optSlope(1f)
+                                .build()
+                        )
                         .build();
         var loss = Loss.sigmoidBinaryCrossEntropyLoss();
         var initializer = new XavierInitializer(
