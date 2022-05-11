@@ -1,6 +1,5 @@
 package edu.psuti.alexandrov.ui;
 
-import ai.djl.Model;
 import edu.psuti.alexandrov.task.TrainModelTask;
 import edu.psuti.alexandrov.util.FlexibleExecutor;
 import javafx.animation.*;
@@ -17,8 +16,6 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 import static edu.psuti.alexandrov.AppPresets.*;
 import static edu.psuti.alexandrov.ui.Fonts.*;

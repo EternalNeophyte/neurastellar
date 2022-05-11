@@ -1,7 +1,6 @@
 package edu.psuti.alexandrov.stellar;
 
 import com.opencsv.bean.CsvBindByName;
-import com.opencsv.bean.CsvCustomBindByName;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -48,8 +47,8 @@ public class StellarObject implements Serializable {
     @CsvBindByName(column = "field_ID")
     private int field;
 
-    @CsvCustomBindByName(column = "class", converter = StellarClassConverter.class)
-    private StellarClass outputClass;
+    @CsvBindByName(column = "class")
+    private String outputClass;
 
     @CsvBindByName(column = "redshift")
     private BigDecimal redshift;
@@ -63,7 +62,7 @@ public class StellarObject implements Serializable {
     @CsvBindByName(column = "fiber_ID")
     private int fiber;
 
-    public StellarClass getOutputClass() {
+    public String getOutputClass() {
         return outputClass;
     }
 
@@ -119,7 +118,7 @@ public class StellarObject implements Serializable {
         this.field = field;
     }
 
-    public void setOutputClass(StellarClass outputClass) {
+    public void setOutputClass(String outputClass) {
         this.outputClass = outputClass;
     }
 
