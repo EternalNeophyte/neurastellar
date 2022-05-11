@@ -24,6 +24,7 @@ import java.util.concurrent.Executors;
 
 public record StellarPresets
         (RandomAccessDataset trainingDataset,
+         RandomAccessDataset validationDataset,
          Block neuralNetwork,
          TrainingConfig trainingConfig)
         implements MetaProperties.Csv, MetaProperties.NeuralNetwork, MetaProperties.Training {
@@ -31,12 +32,21 @@ public record StellarPresets
     private static final Logger LOG = LoggerFactory.getLogger(StellarPresets.class);
 
     public static StellarPresets setup() {
-        return new StellarPresets(newTrainingDataset(), newNeuralNetwork(), newTrainingConfig());
+        return new StellarPresets
+                (newTrainingDataset(),
+                 newValidationDataset(),
+                 newNeuralNetwork(),
+                 newTrainingConfig());
     }
 
     private static RandomAccessDataset newTrainingDataset() {
         LOG.info("Loading training dataset...");
         return StellarDataset.fromFile(PATH_TO_TRAINING_DATA);
+    }
+
+    private static RandomAccessDataset newValidationDataset() {
+        LOG.info("Loading validation dataset...");
+        return StellarDataset.fromFile(PATH_TO_VALIDATION_DATA);
     }
 
     private static Block newNeuralNetwork() {
@@ -93,7 +103,5 @@ public record StellarPresets
                 .addTrainingListeners(TrainingListener.Defaults.logging())
                 .addTrainingListeners(saveListener, new EpochTrainingListener());
     }
-
-
 
 }

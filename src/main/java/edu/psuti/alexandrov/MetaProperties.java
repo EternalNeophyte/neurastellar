@@ -6,7 +6,8 @@ public interface MetaProperties {
 
     interface Csv {
 
-        Path PATH_TO_TRAINING_DATA = Path.of("src\\main\\resources\\csv\\star_cl_train.csv");
+        Path PATH_TO_TRAINING_DATA = Path.of("src\\main\\resources\\csv\\star_cl_train.csv"),
+        PATH_TO_VALIDATION_DATA = Path.of("src\\main\\resources\\csv\\star_cl_validation.csv");
         char SEPARATOR = ',';
         int SKIP_LINES = 0;
         boolean IGNORE_QUOTATIONS = true;
