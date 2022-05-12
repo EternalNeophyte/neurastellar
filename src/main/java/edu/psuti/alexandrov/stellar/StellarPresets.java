@@ -81,7 +81,7 @@ public record StellarPresets
                         .optWeightDecays(0.00001f)
                         .optMomentum(0.9f)
                         .setLearningRateTracker(LinearTracker.builder()
-                                .optSlope(1f)
+                                .optSlope(1000f)
                                 .build()
                         )
                         .build();
@@ -91,14 +91,14 @@ public record StellarPresets
                 XavierInitializer.FactorType.AVG,
                 2.24f);
         var executorService = Executors.newFixedThreadPool(N_THREADS);
-        var saveListener = new SaveModelTrainingListener(OUTPUT_DIR);
+        /*var saveListener = new SaveModelTrainingListener(OUTPUT_DIR);
         saveListener.setSaveModelCallback(trainer -> {
             var result = trainer.getTrainingResult();
             var model = trainer.getModel();
-            float accuracy = result.getValidateEvaluation("Accuracy");
-            model.setProperty("Accuracy", String.format("%.5f", accuracy));
+            *//*float accuracy = result.getValidateEvaluation("Accuracy");
+            model.setProperty("Accuracy", String.format("%.5f", accuracy));*//*
             model.setProperty("Loss", String.format("%.5f", result.getValidateLoss()));
-        });
+        });*/
         return new DefaultTrainingConfig(loss)
                 .optOptimizer(optimizer)
                 .optInitializer(initializer, "Initializer")
@@ -106,7 +106,7 @@ public record StellarPresets
                 .optExecutorService(executorService)
                 .addEvaluator(new Accuracy("Accuracy", 2))
                 .addTrainingListeners(TrainingListener.Defaults.logging())
-                .addTrainingListeners(saveListener, new EpochTrainingListener());
+                .addTrainingListeners(new EpochTrainingListener());
     }
 
 }

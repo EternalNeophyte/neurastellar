@@ -1,7 +1,9 @@
 package edu.psuti.alexandrov.task;
 
+import ai.djl.MalformedModelException;
 import ai.djl.Model;
 import ai.djl.metric.Metrics;
+import ai.djl.ndarray.types.Shape;
 import ai.djl.training.Trainer;
 import ai.djl.translate.TranslateException;
 import edu.psuti.alexandrov.MetaProperties;
@@ -9,10 +11,13 @@ import edu.psuti.alexandrov.stellar.StellarPresets;
 import javafx.concurrent.Task;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
 import static ai.djl.training.EasyTrain.trainBatch;
 import static ai.djl.training.EasyTrain.validateBatch;
+import static edu.psuti.alexandrov.MetaProperties.NeuralNetwork.*;
 
 /**
  * Created on 11.05.2022
@@ -20,6 +25,10 @@ import static ai.djl.training.EasyTrain.validateBatch;
  * @author alexandrov
  */
 public class TrainModelTask extends Task<Model> implements MetaProperties.Training {
+
+    public Model callModel() {
+        return call();
+    }
 
     @Override
     protected Model call() {
@@ -30,7 +39,12 @@ public class TrainModelTask extends Task<Model> implements MetaProperties.Traini
             var config = presets.trainingConfig();
             var trainingDataset = presets.trainingDataset();
             var validationDataset = presets.validationDataset();
+
+            model.setBlock(presets.neuralNetwork());
+
             try (Trainer trainer = model.newTrainer(config)) {
+
+                trainer.initialize(new Shape(-1, 256));
                 trainer.setMetrics(new Metrics());
                 int trainded, validated, batchSize;
                 long total = (trainingDataset.size() + validationDataset.size()) * EPOCHS;
@@ -58,12 +72,14 @@ public class TrainModelTask extends Task<Model> implements MetaProperties.Traini
                         batch.close();
                     }
                 }
+                updateMessage("Обучение модели завершено. Сохранение...");
+                model.save(Paths.get(OUTPUT_DIR), modelName);
             } catch (TranslateException | IOException e) {
                 throw new RuntimeException(e);
             }
-            updateMessage("Обучение модели завершено");
             return model;
         }
+
     }
 
 }

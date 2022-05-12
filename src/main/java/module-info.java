@@ -7,7 +7,7 @@ module edu.psuti.alexandrov {
     requires org.controlsfx.controls;
 
     requires ai.djl.api;
-    requires ai.djl.mxnet_engine;
+    //requires ai.djl.mxnet_engine;
     requires com.opencsv;
     requires org.slf4j;
 
