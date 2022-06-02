@@ -69,6 +69,7 @@ public class StellarDataset extends RandomAccessDataset implements MetaPropertie
                         .withSeparator(SEPARATOR)
                         .withSkipLines(SKIP_LINES)
                         .withIgnoreQuotations(IGNORE_QUOTATIONS)
+                        .withOrderedResults(false)
                         .build()
                         .parse();
             } catch (IOException e) {

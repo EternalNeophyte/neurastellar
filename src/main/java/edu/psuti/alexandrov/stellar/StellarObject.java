@@ -1,6 +1,7 @@
 package edu.psuti.alexandrov.stellar;
 
 import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvNumber;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

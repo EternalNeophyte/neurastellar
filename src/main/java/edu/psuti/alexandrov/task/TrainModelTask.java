@@ -4,7 +4,10 @@ import ai.djl.MalformedModelException;
 import ai.djl.Model;
 import ai.djl.metric.Metrics;
 import ai.djl.ndarray.types.Shape;
+import ai.djl.training.EasyTrain;
 import ai.djl.training.Trainer;
+import ai.djl.training.dataset.Batch;
+import ai.djl.training.dataset.RandomAccessDataset;
 import ai.djl.translate.TranslateException;
 import edu.psuti.alexandrov.MetaProperties;
 import edu.psuti.alexandrov.stellar.StellarPresets;
@@ -14,6 +17,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.function.BiConsumer;
 
 import static ai.djl.training.EasyTrain.trainBatch;
 import static ai.djl.training.EasyTrain.validateBatch;
@@ -46,31 +50,17 @@ public class TrainModelTask extends Task<Model> implements MetaProperties.Traini
 
                 trainer.initialize(new Shape(-1, 256));
                 trainer.setMetrics(new Metrics());
-                int trainded, validated, batchSize;
                 long total = (trainingDataset.size() + validationDataset.size()) * EPOCHS;
 
                 for (int i = 1; i <= EPOCHS; i++) {
                     updateMessage("Эпоха " + i + " из " + EPOCHS);
-                    trainded = validated = 0;
-
-                    for (var batch : trainer.iterateDataset(trainingDataset)) {
-                        batchSize = batch.getSize();
-                        updateMessage("Обучение на фрагменте данных " + trainded + "-" +
-                                (trainded += batchSize) + "...");
-                        updateProgress(batchSize, total);
-                        trainBatch(trainer, batch);
-                        trainer.step();
-                        batch.close();
-                    }
-
-                    for (var batch : trainer.iterateDataset(validationDataset)) {
-                        batchSize = batch.getSize();
-                        updateMessage("Валидация по фрагменту данных " + validated + "-" +
-                                (validated += batchSize) + "...");
-                        updateProgress(batchSize, total);
-                        validateBatch(trainer, batch);
-                        batch.close();
-                    }
+                    iterateWith(trainer, trainingDataset, "Обучение на фрагменте данных", total,
+                                (tr, b) -> {
+                                    trainBatch(trainer, b);
+                                    trainer.step();
+                                });
+                    iterateWith(trainer, validationDataset, "Валидация по фрагменту данных",
+                                total, EasyTrain::validateBatch);
                 }
                 updateMessage("Обучение модели завершено. Сохранение...");
                 model.save(Paths.get(OUTPUT_DIR), modelName);
@@ -80,6 +70,21 @@ public class TrainModelTask extends Task<Model> implements MetaProperties.Traini
             return model;
         }
 
+    }
+
+    private void iterateWith(Trainer trainer,
+                             RandomAccessDataset dataset,
+                             String uniqueMessagePart,
+                             long total,
+                             BiConsumer<Trainer, Batch> trainBatchConsumer) throws TranslateException, IOException {
+        int iterated = 0, batchSize;
+        for (var batch : trainer.iterateDataset(dataset)) {
+            batchSize = batch.getSize();
+            updateMessage("%s: %d-%d...".formatted(uniqueMessagePart, iterated, iterated += batchSize));
+            updateProgress(batchSize, total);
+            trainBatchConsumer.accept(trainer, batch);
+            batch.close();
+        }
     }
 
 }

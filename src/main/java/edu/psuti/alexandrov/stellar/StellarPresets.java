@@ -52,6 +52,7 @@ public record StellarPresets
 
     private static Block newNeuralNetwork() {
         //tahn, sigmoid - better for classification: https://neurohive.io/ru/osnovy-data-science/activation-functions/
+        //https://neurohive.io/ru/osnovy-data-science/jepoha-razmer-batcha-iteracija/
         return new SequentialBlock()
                 .add(Blocks.batchFlattenBlock(INPUTS))
                 .add(Linear.builder()
