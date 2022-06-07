@@ -14,14 +14,11 @@ import edu.psuti.alexandrov.stellar.StellarPresets;
 import javafx.concurrent.Task;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.function.BiConsumer;
 
 import static ai.djl.training.EasyTrain.trainBatch;
-import static ai.djl.training.EasyTrain.validateBatch;
-import static edu.psuti.alexandrov.MetaProperties.NeuralNetwork.*;
 
 /**
  * Created on 11.05.2022
