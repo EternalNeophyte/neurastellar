@@ -45,7 +45,7 @@ public class TrainModelTask extends Task<Model> implements MetaProperties.Traini
 
             try (Trainer trainer = model.newTrainer(config)) {
 
-                trainer.initialize(new Shape(-1, 256));
+                trainer.initialize(new Shape(9, 9));
                 trainer.setMetrics(new Metrics());
                 long total = (trainingDataset.size() + validationDataset.size()) * EPOCHS;
 
