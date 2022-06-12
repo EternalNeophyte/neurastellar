@@ -2,12 +2,10 @@ package edu.psuti.alexandrov.stellar;
 
 import ai.djl.ndarray.types.Shape;
 import com.opencsv.bean.CsvBindByName;
-import com.opencsv.bean.CsvNumber;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
-import java.util.stream.Stream;
 
 public class StellarObject implements Serializable {
 

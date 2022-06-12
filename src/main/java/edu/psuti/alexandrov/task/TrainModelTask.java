@@ -20,11 +20,6 @@ import java.util.function.BiConsumer;
 
 import static ai.djl.training.EasyTrain.trainBatch;
 
-/**
- * Created on 11.05.2022
- *
- * @author alexandrov
- */
 public class TrainModelTask extends Task<Model> implements MetaProperties.Training {
 
     public Model callModel() {
