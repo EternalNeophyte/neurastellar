@@ -1,7 +1,6 @@
 package edu.psuti.alexandrov.ui;
 
 import edu.psuti.alexandrov.task.TrainModelTask;
-import edu.psuti.alexandrov.util.FlexibleExecutor;
 import javafx.animation.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -49,8 +48,6 @@ public class UiController implements Initializable {
     @FXML
     private TextArea trainLogs;
 
-    private final FlexibleExecutor taskExecutor = new FlexibleExecutor();
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         appName.setFont(font(EXO_2_LIGHT, 75));
@@ -81,19 +78,12 @@ public class UiController implements Initializable {
         boolean resumeButtonIsHiding = resumeTrain.getOpacity() > 0;
         resumeTrain.setOpacity(resumeButtonIsHiding ? 0 : 1);
         pauseTrain.setOpacity(resumeButtonIsHiding ? 1 : 0);
-        if(taskExecutor.isFree()) {
-            TrainModelTask task = new TrainModelTask();
-            trainStatus.textProperty().unbind();
-            trainStatus.textProperty().bind(task.messageProperty());
-            trainProgress.progressProperty().unbind();
-            trainProgress.progressProperty().bind(task.progressProperty());
-            taskExecutor.submit(task);
-        }
-        else if(taskExecutor.isPaused()) {
-            taskExecutor.resume();
-        }
-        else {
-            taskExecutor.pause();
-        }
+
+        TrainModelTask task = new TrainModelTask();
+        trainStatus.textProperty().unbind();
+        trainStatus.textProperty().bind(task.messageProperty());
+        trainProgress.progressProperty().unbind();
+        trainProgress.progressProperty().bind(task.progressProperty());
+        task.callModel();
     }
 }

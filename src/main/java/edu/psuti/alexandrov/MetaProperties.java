@@ -15,12 +15,12 @@ public interface MetaProperties {
 
     interface NeuralNetwork {
 
-        long INPUTS = 0x9,
-                FIRST_LAYER_UNITS = 0xAA,
-                SECOND_LAYER_UNITS = 0x44,
-                THIRD_LAYER_UNITS = 0x77,
-                OUTPUTS = 0x3;
-        int BATCH_SIZE = 0x80;
+        long INPUTS = 9,
+                FIRST_LAYER_UNITS = 16,
+                SECOND_LAYER_UNITS = 25,
+                THIRD_LAYER_UNITS = 16,
+                OUTPUTS = 3;
+        int BATCH_SIZE = 64;
         boolean RANDOM_SAMPLING = true;
     }
 
@@ -28,9 +28,5 @@ public interface MetaProperties {
 
         int N_THREADS = 4, EPOCHS = 10;
         String OUTPUT_DIR = "src\\main\\resources\\training";
-    }
-
-    interface Testing {
-
     }
 }

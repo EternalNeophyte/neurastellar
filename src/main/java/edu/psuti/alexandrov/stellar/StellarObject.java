@@ -1,10 +1,12 @@
 package edu.psuti.alexandrov.stellar;
 
+import ai.djl.ndarray.types.Shape;
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvNumber;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public class StellarObject implements Serializable {
@@ -139,7 +141,12 @@ public class StellarObject implements Serializable {
         this.fiber = fiber;
     }
 
-    public Stream<BigDecimal> datumStream() {
-        return Stream.of(declination, rightAscension, redshift, red, ultraviolet, green, infrared, nearInfrared);
+    public Shape getDatumShape() {
+        long code = Objects.hash(declination, rightAscension, redshift, red, ultraviolet, green, infrared, nearInfrared);
+        return new Shape(code);
+    }
+
+    public Shape getLabelShape() {
+        return new Shape(Objects.hashCode(outputClass));
     }
 }

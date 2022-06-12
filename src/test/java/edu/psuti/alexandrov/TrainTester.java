@@ -10,6 +10,7 @@ public class TrainTester {
     @Test
     public void train() {
         assertDoesNotThrow(() -> {
+            NeurastellarApp.main();
             TrainModelTask task = new TrainModelTask();
             var m = task.callModel();
         });

@@ -1,17 +1,22 @@
 package edu.psuti.alexandrov.stellar;
 
+import ai.djl.mxnet.engine.MxNDManager;
 import ai.djl.ndarray.NDArray;
 import ai.djl.ndarray.NDList;
 import ai.djl.ndarray.NDManager;
+import ai.djl.ndarray.types.DataType;
+import ai.djl.ndarray.types.Shape;
 import ai.djl.training.dataset.RandomAccessDataset;
 import ai.djl.training.dataset.Record;
 import ai.djl.util.Progress;
 import com.opencsv.bean.CsvToBeanBuilder;
 import edu.psuti.alexandrov.MetaProperties;
+import edu.psuti.alexandrov.util.NDObjects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -36,12 +41,9 @@ public class StellarDataset extends RandomAccessDataset implements MetaPropertie
     @Override
     public Record get(NDManager manager, long index) {
         var stellarObject = csvObjects.get(Math.toIntExact(index));
-        var label = manager.create(stellarObject.getOutputClass().toString());
-        var datum = stellarObject
-                .datumStream()
-                .map(manager::create)
-                .toArray(NDArray[]::new);
-        return new Record(new NDList(datum), new NDList(label));
+        var labelList = NDObjects.shapeToNDList(stellarObject.getLabelShape(), manager);
+        var datumList = NDObjects.shapeToNDList(stellarObject.getDatumShape(), manager);
+        return new Record(datumList, labelList);
     }
 
     @Override

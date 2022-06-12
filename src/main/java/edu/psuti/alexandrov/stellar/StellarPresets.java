@@ -12,7 +12,6 @@ import ai.djl.training.dataset.RandomAccessDataset;
 import ai.djl.training.evaluator.Accuracy;
 import ai.djl.training.initializer.XavierInitializer;
 import ai.djl.training.listener.EpochTrainingListener;
-import ai.djl.training.listener.SaveModelTrainingListener;
 import ai.djl.training.listener.TrainingListener;
 import ai.djl.training.loss.Loss;
 import ai.djl.training.optimizer.Optimizer;
@@ -51,8 +50,6 @@ public record StellarPresets
     }
 
     private static Block newNeuralNetwork() {
-        //tahn, sigmoid - better for classification: https://neurohive.io/ru/osnovy-data-science/activation-functions/
-        //https://neurohive.io/ru/osnovy-data-science/jepoha-razmer-batcha-iteracija/
         return new SequentialBlock()
                 .add(Blocks.batchFlattenBlock(INPUTS))
                 .add(Linear.builder()
@@ -92,14 +89,6 @@ public record StellarPresets
                 XavierInitializer.FactorType.AVG,
                 2.24f);
         var executorService = Executors.newFixedThreadPool(N_THREADS);
-        /*var saveListener = new SaveModelTrainingListener(OUTPUT_DIR);
-        saveListener.setSaveModelCallback(trainer -> {
-            var result = trainer.getTrainingResult();
-            var model = trainer.getModel();
-            *//*float accuracy = result.getValidateEvaluation("Accuracy");
-            model.setProperty("Accuracy", String.format("%.5f", accuracy));*//*
-            model.setProperty("Loss", String.format("%.5f", result.getValidateLoss()));
-        });*/
         return new DefaultTrainingConfig(loss)
                 .optOptimizer(optimizer)
                 .optInitializer(initializer, "Initializer")
