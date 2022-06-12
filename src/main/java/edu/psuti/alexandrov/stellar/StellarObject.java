@@ -140,7 +140,16 @@ public class StellarObject implements Serializable {
     }
 
     public Shape getDatumShape() {
-        long code = Objects.hash(declination, rightAscension, redshift, red, ultraviolet, green, infrared, nearInfrared);
+        long code = Objects.hash(
+                declination,
+                rightAscension,
+                redshift,
+                red,
+                ultraviolet,
+                green,
+                infrared,
+                nearInfrared
+        );
         return new Shape(code);
     }
 
