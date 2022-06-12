@@ -52,25 +52,22 @@ public record StellarPresets
     private static Block newNeuralNetwork() {
         return new SequentialBlock()
                 .add(Blocks.batchFlattenBlock(INPUTS))
+                .add(Activation::sigmoid)
                 .add(Linear.builder()
                         .setUnits(FIRST_LAYER_UNITS)
-                        .build()
-                )
+                        .build())
                 .add(Activation::tanh)
                 .add(Linear.builder()
                         .setUnits(SECOND_LAYER_UNITS)
-                        .build()
-                )
+                        .build())
                 .add(Activation::sigmoid)
                 .add(Linear.builder()
                         .setUnits(THIRD_LAYER_UNITS)
-                        .build()
-                )
+                        .build())
                 .add(Activation::tanh)
                 .add(Linear.builder()
                         .setUnits(OUTPUTS)
-                        .build()
-                );
+                        .build());
     }
 
     private static TrainingConfig newTrainingConfig() {
@@ -83,7 +80,7 @@ public record StellarPresets
                                 .build()
                         )
                         .build();
-        var loss = Loss.sigmoidBinaryCrossEntropyLoss();
+        var loss = Loss.l2Loss();
         var initializer = new XavierInitializer(
                 XavierInitializer.RandomType.UNIFORM,
                 XavierInitializer.FactorType.AVG,
